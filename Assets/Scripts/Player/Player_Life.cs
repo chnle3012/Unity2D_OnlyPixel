@@ -1,7 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerLife : MonoBehaviour
 {
@@ -30,7 +30,7 @@ public class PlayerLife : MonoBehaviour
             deathSoundEfect.Play();
 
             health--;
-            Destroy(hearts[health].gameObject);
+            hearts[health].SetActive(false);
 
             if (health >= 1)
             {
@@ -42,6 +42,13 @@ public class PlayerLife : MonoBehaviour
                 Physics2D.IgnoreLayerCollision(7, 8, false);
                 Die();
             }
+        }
+
+        if(collision.gameObject.CompareTag("Heart"))
+        {
+            hearts[health].SetActive(true);
+            health++;
+            Destroy(collision.gameObject);
         }
     }
 
